@@ -9,6 +9,8 @@ import { useDispatch} from 'react-redux';
 import { useEffect } from 'react';
 import { PrivatRoute } from './Routes/PrivateRoute';
 import { RestrictedRoute } from './Routes/RestrictedRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import CssBaseline from '@mui/material/CssBaseline';
 
 export function App () {
@@ -28,6 +30,7 @@ return (
       <Route path="contacts" element={<PrivatRoute redirectTo="/login" component={<Contacts/>}/>}/>
     </Route>
   </Routes>
+  <ToastContainer/>
   <CssBaseline />
   </>
   

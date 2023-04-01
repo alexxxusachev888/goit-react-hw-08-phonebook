@@ -4,6 +4,9 @@ export const getError = state => state.contacts.contacts.error;
 export const getFilter = state => state.contacts.filter;
 export const getToUpdate = state => state.contacts.edit;
 
+
+
+
 export const contactsToRender =  state => {
     const getTrimmedFilter = getFilter(state).trim().toLowerCase();
     const currentContacts = getContacts(state);
