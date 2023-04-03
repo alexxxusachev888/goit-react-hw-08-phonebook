@@ -4,8 +4,7 @@ import {
   ListItem,
   ListItemText,
   IconButton,
-  ListItemSecondaryAction,
-  ListItemButton,
+  Box,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations';
@@ -17,12 +16,14 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const rootModalRef = document.querySelector('#modal');
 
 export function ContactElem({ id, name, number }) {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleEditClick = () => {
     dispatch(editContact({ id, name, number }));
@@ -34,16 +35,24 @@ export function ContactElem({ id, name, number }) {
       <ListItem
         disableGutters
         sx={{
+          position: '',
           width: '100%',
           display: 'flex',
-          flexDirection: 'space-between',
+          justifyContent: "space-between",
           borderRadius: '8px',
           '&:hover': {
             backgroundColor: 'rgba(0, 0, 0, 0.05)',
           },
+          ...(isMobile && {
+            flexWrap: 'wrap',
+            justifyContent: "center",
+            gap: '10px',
+          }),
         }}
       >
-        <ListItemButton sx={{ '&:hover': { backgroundColor: 'transparent' } }}>
+        <Box sx={{ width: '100%', display: 'flex',
+            alignItems: 'center', '&:hover': { backgroundColor: 'transparent' }, 
+            ...(isMobile && { justifyContent: "space-between"}),}}>
           <IconButton edge="start" aria-label="phone">
             <PhoneIcon />
           </IconButton>
@@ -51,13 +60,16 @@ export function ContactElem({ id, name, number }) {
             sx={{ marginLeft: '10px', 
             display: 'flex',
             alignItems: 'center',
-            gap: '20px' }}
+            gap: '20px', 
+            ...(isMobile && { justifyContent: "space-between"}),}}
             primary={name}
             secondary={number}
           />
-        </ListItemButton>
-        <ListItemSecondaryAction sx={{display: 'flex',
-          gap: '10px',}}>
+        </Box>
+        <Box sx={{width: '100%', justifyContent: "flex-end", display: 'flex', gap: '10px', 
+        ...(isMobile && {
+              justifyContent: "space-between"
+            }),}}>
           <Button 
                 edge="end" 
                 aria-label="edit" 
@@ -74,7 +86,7 @@ export function ContactElem({ id, name, number }) {
                 startIcon={<DeleteIcon />}>
             Delete
             </Button>
-        </ListItemSecondaryAction>
+        </Box>
       </ListItem>
       {showModal &&
         createPortal(<EditForm onClose={() => setShowModal(false)} />, rootModalRef)}

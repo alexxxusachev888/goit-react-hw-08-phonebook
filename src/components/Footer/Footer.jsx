@@ -1,11 +1,15 @@
 import { Box, Typography, Link as MuiLink, Stack } from '@mui/material';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const Footer = () => {
+  const isMobile = useMediaQuery('(max-width:600px)');
   return (
     <Box
       sx={{
-        width: '100%',
+        position: isMobile ? 'relative' : 'static',
+        marginLeft: isMobile ? '-20px' : '0px',
+        marginRight: isMobile ? '-20px' : '0px',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
